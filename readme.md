@@ -1,6 +1,13 @@
 # Go Pipeline
 
-This Github Action allows you to build and test Go code, run golangci-lint, and upload coverage reports to Codecov.
+This is a composite Github Action to simplify the setup for Go projects.
+Features of the action:
+* setup go using `actions/setup-go@v4`
+* run go test
+* run go vet
+* setup and run golangci-lint using `golangci/golangci-lint-action@v3`
+* upload coverage to codecov
+
 
 ## Inputs
 
@@ -14,7 +21,7 @@ This Github Action allows you to build and test Go code, run golangci-lint, and 
 | golangci-working-directory | The working directory for golangci-lint | ./ |
 | golangci-args | The command line arguments for golangci-lint | `--issues-exit-code=0` |
 | golangci-only-new-issues | A boolean flag indicating whether to show only new issues if it is a pull request | false |
-| codecov-token | The token used to authorize coverage report uploads to Codecov | "" |
+| codecov-token | The token used to authorize coverage report uploads to Codecov, required if coverage should be uploaded to codecov | "" |
 | coverage-file | The coverage file name | coverprofile.out |
 
 ## Example Usage
