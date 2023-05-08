@@ -1,4 +1,5 @@
-name: 'Go Pipeline'
+name: 'Go Pipeline Action'
+description: 'This GitHub Action sets up a Go pipeline with the option to run tests, vet code, lint with golangci, and upload coverage reports to Codecov.'
 
 inputs: 
   go-version:
