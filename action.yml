@@ -1,5 +1,9 @@
 name: 'Go Pipeline Action'
 description: 'Automate Go testing, vetting, and linting with golangci and upload coverage reports to Codecov using this customizable action'
+author: 'trapajim'
+branding:
+  icon: 'activity'
+  color: 'blue'
 
 inputs: 
   go-version:
