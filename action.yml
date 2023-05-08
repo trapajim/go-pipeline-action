@@ -1,0 +1,61 @@
+name: 'Go Pipeline'
+
+inputs: 
+  go-version:
+    description: 'go version'
+    default: 'stable'
+  go-test-flags:
+    description: 'arguments for go test ./...'
+    default: './... -v -covermode=atomic -coverprofile=coverprofile.out'
+  go-vet:
+    description: 'boolean if go vet should be run'
+    default: 'true'
+  golangci-version:
+    description: 'golangci version'
+    default: 'latest'
+  golangci-run:
+    description: 'boolean if golangci should be run'
+    default: 'true'
+  golangci-working-directory:
+    descrption: 'working directory'
+    default: './'
+  golangci-args:
+    description: 'golangci-lint command line arguments'
+    default: '--issues-exit-code=0'
+  golangci-only-new-issues:
+    description: 'show only new issues if it is a pull request'
+    default: 'false'
+  codecov-token:
+    description: 'used to authorize coverage report uploads'
+    default: ''
+  coverage-file: 
+    description: 'coverage file name'
+    default: 'coverprofile.out'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-go@v4
+      with:
+        go-version: ${{ inputs.go-version}}
+    - name: Go test
+      shell: bash
+      run: go test ${{ inputs.go-test-flags }}
+    - name: Go vet
+      if: ${{ inputs.go-vet == 'true'}}
+      shell: bash
+      run: go vet ./...
+    - name: golangci-lint
+      if: ${{ inputs.golangci-run == 'true'}}
+      uses: golangci/golangci-lint-action@v3 
+      with:
+        version: ${{ inputs.golangci-version }}
+        working-directory: ${{ inputs.golangci-working-directory }}
+        args: ${{ inputs.golangci-args }}
+        only-new-issues: ${{ inputs.golangci-only-new-issues }}
+    - name: codecov
+      if: ${{ inputs.codecov-token != ''}}
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ inputs.codecov-token }}
+        files: ${{ inputs.coverage-file }}
