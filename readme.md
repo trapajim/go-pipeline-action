@@ -2,10 +2,10 @@
 
 This is a composite Github Action to simplify the setup for Go projects.
 Features of the action:
-* setup go using `actions/setup-go@v4`
+* setup go using `actions/setup-go@v5`
 * run go test
 * run go vet
-* setup and run golangci-lint using `golangci/golangci-lint-action@v3`
+* setup and run golangci-lint using `golangci/golangci-lint-action@v6`
 * upload coverage to codecov
 
 
