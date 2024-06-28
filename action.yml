@@ -40,7 +40,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/setup-go@v4
+    - uses: actions/setup-go@v5
       with:
         go-version: ${{ inputs.go-version}}
     - name: Go test
@@ -52,7 +52,7 @@ runs:
       run: go vet ./...
     - name: golangci-lint
       if: ${{ inputs.golangci-run == 'true'}}
-      uses: golangci/golangci-lint-action@v3 
+      uses: golangci/golangci-lint-action@v6 
       with:
         version: ${{ inputs.golangci-version }}
         working-directory: ${{ inputs.golangci-working-directory }}
